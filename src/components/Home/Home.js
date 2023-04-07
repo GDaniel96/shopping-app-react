@@ -1,6 +1,5 @@
 import React from "react";
 import ReadMore from "../ReadMore/ReadMore";
-import HomePhoto from "../../assets/shop.jpg";
 import "./Home.css";
 
 const Home = ({ products }) => {
