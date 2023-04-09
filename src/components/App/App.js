@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import "./App.css";
-// import Home from "./Home/Home";
-import Products from "./Products/Products";
 import axios from "axios";
-import FilterButtons from "./FilterButtons/FilterButtons";
+import "./App.css";
+// import Home from "../Home/Home";
+import Products from "../Products/Products";
+import FilterButtons from "../FilterButtons/FilterButtons";
+import Cart from "../Cart/Cart";
+import CartList from "../CartList/CartList";
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -25,7 +27,7 @@ const App = () => {
         });
     };
     fetchData();
-  }, []);
+  }, [cart]);
 
   const categoryItems = [
     ...new Set(products.map((product) => product.category)),
@@ -44,14 +46,16 @@ const App = () => {
         "Loading data..."
       ) : (
         <>
+          <Cart cart={cart} />
           {/* <Home products={products} /> */}
-          <FilterButtons
+          {/* <FilterButtons
             products={products}
             categoryItems={categoryItems}
             filterItem={filterItem}
             setFilteredProducts={setFilteredProducts}
-          />
-          <Products products={filteredProducts} />
+          /> */}
+          <Products products={filteredProducts} setCart={setCart} cart={cart} />
+          <CartList cart={cart} setCart={setCart} />
         </>
       )}
     </div>

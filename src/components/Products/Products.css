@@ -23,4 +23,5 @@
 
 .buy > button {
   background-color: red;
+  font-family: inherit;
 }

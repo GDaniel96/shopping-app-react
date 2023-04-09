@@ -2,7 +2,32 @@ import React from "react";
 import "./Products.css";
 import ReadMore from "../ReadMore/ReadMore";
 
-const Products = ({ products }) => {
+const Products = ({ products, setCart, cart }) => {
+  const addToCart = (product) => {
+    product["quantity"] = 1;
+
+    const nextItemFromState = [...cart, product];
+
+    let sameItem = cart.findIndex((item) => item.id === product.id);
+    console.log(sameItem);
+
+    if (sameItem !== -1) {
+      cart[sameItem].quantity += 1;
+      setCart([...cart]);
+    } else {
+      setCart(nextItemFromState);
+    }
+
+    console.log(cart);
+  };
+
+  // const removeFromCart = (element) => {
+  //   let hardCopy = [...cart];
+
+  //   hardCopy = hardCopy.filter((item) => item.id !== element.id);
+  //   setCart(hardCopy);
+  // };
+
   const listOfProducts = products.map((product) => {
     return (
       <div className="ui card" key={product.id}>
@@ -21,7 +46,7 @@ const Products = ({ products }) => {
             <h2>$ {product.price}</h2>
           </div>
           <div className="buy">
-            <button> Add to Cart </button>
+            <button onClick={() => addToCart(product)}> Add to Cart </button>
           </div>
         </div>
       </div>
