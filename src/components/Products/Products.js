@@ -3,30 +3,21 @@ import "./Products.css";
 import ReadMore from "../ReadMore/ReadMore";
 
 const Products = ({ products, setCart, cart }) => {
+  let hardCopy = [...cart];
+
   const addToCart = (product) => {
     product["quantity"] = 1;
 
-    const nextItemFromState = [...cart, product];
+    let sameIndex = hardCopy.findIndex((item) => item.id === product.id);
+    console.log(sameIndex);
 
-    let sameItem = cart.findIndex((item) => item.id === product.id);
-    console.log(sameItem);
-
-    if (sameItem !== -1) {
-      cart[sameItem].quantity += 1;
-      setCart([...cart]);
+    if (sameIndex !== -1) {
+      hardCopy[sameIndex].quantity++;
+      setCart([...hardCopy]);
     } else {
-      setCart(nextItemFromState);
+      setCart([...hardCopy, product]);
     }
-
-    console.log(cart);
   };
-
-  // const removeFromCart = (element) => {
-  //   let hardCopy = [...cart];
-
-  //   hardCopy = hardCopy.filter((item) => item.id !== element.id);
-  //   setCart(hardCopy);
-  // };
 
   const listOfProducts = products.map((product) => {
     return (
