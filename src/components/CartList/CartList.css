@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+}
+
+.container > .image {
+  height: 200px;
+  width: 200px;
+}
+
+.container > .content {
+  height: 200px;
+  width: 200px;
+}
+
+.container > .image > img {
+  height: 100%;
+}
+
+.container > .content {
+  height: 100%;
+}

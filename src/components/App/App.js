@@ -6,6 +6,8 @@ import Products from "../Products/Products";
 import FilterButtons from "../FilterButtons/FilterButtons";
 import Cart from "../Cart/Cart";
 import CartList from "../CartList/CartList";
+import Route from "../Route/Route";
+import Header from "../Header/Header";
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -46,7 +48,29 @@ const App = () => {
         "Loading data..."
       ) : (
         <>
-          <Cart cart={cart} setCart={setCart} />
+          <Header />
+          <Route path="/">
+            <Cart cart={cart} setCart={setCart} />
+            <Home products={products} />
+          </Route>
+          <Route path="/products">
+            <FilterButtons
+              products={products}
+              categoryItems={categoryItems}
+              filterItem={filterItem}
+              setFilteredProducts={setFilteredProducts}
+            />
+            <Products
+              products={filteredProducts}
+              setCart={setCart}
+              cart={cart}
+            />
+          </Route>
+
+          <Route path="/cart">
+            <CartList cart={cart} setCart={setCart} />
+          </Route>
+          {/* <Cart cart={cart} setCart={setCart} /> */}
           {/* <Home products={products} /> */}
           {/* <FilterButtons
             products={products}
@@ -54,8 +78,8 @@ const App = () => {
             filterItem={filterItem}
             setFilteredProducts={setFilteredProducts}
           /> */}
-          <Products products={filteredProducts} setCart={setCart} cart={cart} />
-          <CartList cart={cart} setCart={setCart} />
+          {/* <Products products={filteredProducts} setCart={setCart} cart={cart} />
+          <CartList cart={cart} setCart={setCart} /> */}
         </>
       )}
     </div>

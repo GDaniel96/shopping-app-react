@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
+import "./CartList.css";
 // import Products from "../Products/Products";
-import ReadMore from "../ReadMore/ReadMore";
 
 const CartList = ({ cart, setCart }) => {
-  const [totalPrice, setTotalPrice] = useState(0);
   let hardCopy = [...cart];
+
+  const totalPriceAmount = hardCopy.reduce(
+    (accumulator, currentValue) =>
+      accumulator + currentValue.price * currentValue.quantity,
+    0
+  );
 
   const increaseQuantity = (product) => {
     let sameIndex = hardCopy.findIndex((item) => item.id === product.id);
@@ -49,23 +54,37 @@ const CartList = ({ cart, setCart }) => {
             <div className="price">
               <h2>$ {product.price}</h2>
             </div>
-            <button onClick={() => decreaseQuantity(product)}>-</button>
-            <h2>Quantity: {product.quantity}</h2>
-            <button
-              onClick={() => {
-                increaseQuantity(product);
-              }}
-            >
-              +
-            </button>
+
+            <h2>
+              Quantity:
+              <span>
+                <button onClick={() => decreaseQuantity(product)}>-</button>
+              </span>
+              {product.quantity}
+              <span>
+                <button
+                  onClick={() => {
+                    increaseQuantity(product);
+                  }}
+                >
+                  +
+                </button>
+              </span>
+            </h2>
           </div>
         </div>
-        <p>{totalPrice}</p>
       </div>
     );
   });
 
-  return <div>{cartItems}</div>;
+  return (
+    <div>
+      <div>{cartItems}</div>
+      <div>
+        <h1>Total Price: $ {totalPriceAmount.toFixed(2)}</h1>
+      </div>
+    </div>
+  );
 };
 
 export default CartList;
