@@ -1,6 +1,5 @@
 import React from "react";
 import "./CartList.css";
-// import Products from "../Products/Products";
 
 const CartList = ({ cart, setCart }) => {
   let hardCopy = [...cart];

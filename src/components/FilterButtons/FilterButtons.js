@@ -12,7 +12,7 @@ const FilterButtons = ({
   };
 
   return (
-    <div className="ui horizontal text menu">
+    <div className="filter-container">
       <div className="header item">
         <button
           className="item"
