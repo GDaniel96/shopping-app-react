@@ -3,7 +3,7 @@ import "./Header.css";
 import Cart from "../Cart/Cart";
 import Link from "../Link/Link";
 
-const Header = ({ cart, setCart }) => {
+const Header = () => {
   return (
     <div className="header-container">
       <div className="ui secondary pointing menu">
@@ -19,7 +19,7 @@ const Header = ({ cart, setCart }) => {
       </div>
       <div className="cart">
         <Link href="/cart">
-          <Cart cart={cart} setCart={setCart} />
+          <Cart />
         </Link>
       </div>
     </div>

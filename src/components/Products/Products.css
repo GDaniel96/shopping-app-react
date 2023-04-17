@@ -4,24 +4,36 @@
   width: 100vw;
   justify-content: center;
   gap: 30px;
+  padding-bottom: 20px;
 }
 
-.ui.card > .image {
+.ui.card.card-container > .image {
   background-color: inherit;
   height: 300px;
 }
 
-.ui.card > .content {
-  background-color: #f5f5f5;
+.ui.card.card-container > .content {
+  display: flex;
+  flex-direction: column;
+  background-color: #c7b198;
   height: fit-content;
+  color: black;
 }
 
-.ui.card > .image > img {
+.ui.card.card-container > .image > img {
   height: 100%;
   object-fit: contain;
 }
 
-.buy > button {
-  background-color: red;
+.add-button {
+  background-color: black;
+  border: none;
+  color: white;
   font-family: inherit;
+  width: 100%;
+  padding: 10px;
+}
+
+.add-button:hover {
+  opacity: 0.5;
 }

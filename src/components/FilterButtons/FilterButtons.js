@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useMemo } from "react";
 import "./FilterButtons.css";
 
-const FilterButtons = ({
-  products,
-  categoryItems,
-  filterItem,
-  setFilteredProducts,
-}) => {
+const FilterButtons = ({ products, setFilteredProducts }) => {
+  const categoryItems = useMemo(() => {
+    return [...new Set(products.map((product) => product.category))];
+  }, [products]);
+
+  const filterItem = (currentCategory) => {
+    const newItem = products.filter((newValue) => {
+      return newValue.category === currentCategory;
+    });
+    setFilteredProducts(newItem);
+  };
+
   const setAll = () => {
     setFilteredProducts(products);
   };
@@ -22,11 +28,11 @@ const FilterButtons = ({
         >
           All
         </button>
-        {categoryItems.map((category, id) => {
+        {categoryItems.map((category) => {
           return (
             <button
               className="item"
-              key={id}
+              key={category}
               onClick={() => filterItem(category)}
             >
               {category}

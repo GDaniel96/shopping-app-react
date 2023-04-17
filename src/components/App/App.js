@@ -8,12 +8,12 @@ import CartList from "../CartList/CartList";
 import Route from "../Route/Route";
 import Header from "../Header/Header";
 import Loading from "../Loading/Loading";
+import Provider from "../Cart/Provider";
 
 const App = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [cart, setCart] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,47 +31,32 @@ const App = () => {
     fetchData();
   }, []);
 
-  const categoryItems = [
-    ...new Set(products.map((product) => product.category)),
-  ];
-
-  const filterItem = (currentCategory) => {
-    const newItem = products.filter((newValue) => {
-      return newValue.category === currentCategory;
-    });
-    setFilteredProducts(newItem);
-  };
-
   return (
-    <div>
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <>
-          <Header cart={cart} setCart={setCart} />
-          <Route path="/">
-            <Home products={products} />
-          </Route>
-          <Route path="/products">
-            <FilterButtons
-              products={products}
-              categoryItems={categoryItems}
-              filterItem={filterItem}
-              setFilteredProducts={setFilteredProducts}
-            />
-            <Products
-              products={filteredProducts}
-              setCart={setCart}
-              cart={cart}
-            />
-          </Route>
+    <Provider>
+      <div>
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <>
+            <Header />
 
-          <Route path="/cart">
-            <CartList cart={cart} setCart={setCart} />
-          </Route>
-        </>
-      )}
-    </div>
+            <Route path="/">
+              <Home products={products} />
+            </Route>
+            <Route path="/products">
+              <FilterButtons
+                products={products}
+                setFilteredProducts={setFilteredProducts}
+              />
+              <Products products={filteredProducts} />
+            </Route>
+            <Route path="/cart">
+              <CartList />
+            </Route>
+          </>
+        )}
+      </div>
+    </Provider>
   );
 };
 

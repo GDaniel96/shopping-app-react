@@ -1,86 +1,104 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Context } from "../Cart/Provider";
 import "./CartList.css";
 
-const CartList = ({ cart, setCart }) => {
-  let hardCopy = [...cart];
+const CartList = () => {
+  const { cart, setCart } = useContext(Context);
 
-  const totalPriceAmount = hardCopy.reduce(
+  const totalPriceAmount = cart.reduce(
     (accumulator, currentValue) =>
       accumulator + currentValue.price * currentValue.quantity,
     0
   );
 
   const increaseQuantity = (product) => {
-    let sameIndex = hardCopy.findIndex((item) => item.id === product.id);
-    console.log(hardCopy);
-
-    if (sameIndex !== -1) {
-      hardCopy[sameIndex].quantity++;
-      setCart([...hardCopy]);
-    } else {
-      setCart([...hardCopy, product]);
+    let indexOfExistingProduct = cart.findIndex(
+      (item) => item.id === product.id
+    );
+    console.log(indexOfExistingProduct);
+    if (indexOfExistingProduct !== -1) {
+      const updatedCart = cart.map((cartItem, index) => {
+        console.log(cartItem);
+        if (index === indexOfExistingProduct) {
+          return { ...cartItem, quantity: (cartItem.quantity += 1) };
+        }
+        return cartItem;
+      });
+      setCart(updatedCart);
     }
   };
 
   const decreaseQuantity = (product) => {
-    let sameIndex = hardCopy.findIndex((item) => item.id === product.id);
-    console.log(sameIndex);
+    let indexOfExistingProduct = cart.findIndex(
+      (item) => item.id === product.id
+    );
 
-    if (sameIndex !== -1) {
-      if (hardCopy[sameIndex].quantity <= 1) {
-        hardCopy = hardCopy.filter((item) => item.id !== product.id);
-        setCart(hardCopy);
-      } else {
-        hardCopy[sameIndex].quantity--;
-        setCart([...hardCopy]);
-      }
+    if (indexOfExistingProduct !== -1) {
+      const updatedCart = cart
+        .map((cartItem, index) => {
+          if (index !== indexOfExistingProduct) {
+            return cartItem;
+          }
+
+          if (cartItem.quantity > 1) {
+            return { ...cartItem, quantity: (cartItem.quantity -= 1) };
+          } else {
+            return null;
+          }
+        })
+        .filter((cartItem) => {
+          return cartItem !== null;
+        });
+      setCart(updatedCart);
     }
   };
 
-  const cartItems = cart.map((product) => {
-    return (
-      <div className="container" key={product.id}>
-        <div className="image">
-          <img src={product.image} alt={product.title}></img>
-        </div>
-        <div className="content">
-          <h2 className="header">{product.title}</h2>
-          <div className="meta">
-            <span className="category">{product.category}</span>
-          </div>
-
-          <div className="price">
-            <div className="price">
-              <h2>$ {product.price}</h2>
-            </div>
-
-            <h2>
-              Quantity:
-              <span>
-                <button onClick={() => decreaseQuantity(product)}>-</button>
-              </span>
-              {product.quantity}
-              <span>
-                <button
-                  onClick={() => {
-                    increaseQuantity(product);
-                  }}
-                >
-                  +
-                </button>
-              </span>
-            </h2>
-          </div>
-        </div>
-      </div>
-    );
-  });
-
   return (
     <div>
-      <div>{cartItems}</div>
       <div>
-        <h1>Total Price: $ {totalPriceAmount.toFixed(2)}</h1>
+        {cart.map((product) => {
+          return (
+            <div className="ui segment container" key={product.id}>
+              <div className="image">
+                <img src={product.image} alt={product.title}></img>
+              </div>
+              <div className="content">
+                <h3 className="header">{product.title}</h3>
+                <div className="meta">
+                  <span className="category">{product.category}</span>
+                </div>
+
+                <div className="price">
+                  <div className="price">
+                    <h2>$ {product.price}</h2>
+                  </div>
+                  <div className="quantity-container">
+                    <h4>
+                      <span>
+                        <button onClick={() => decreaseQuantity(product)}>
+                          -
+                        </button>
+                      </span>
+                      {product.quantity}
+                      <span>
+                        <button
+                          onClick={() => {
+                            increaseQuantity(product);
+                          }}
+                        >
+                          +
+                        </button>
+                      </span>
+                    </h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div className="total-price-container">
+        <h2>Total Price: $ {totalPriceAmount.toFixed(2)}</h2>
       </div>
     </div>
   );
