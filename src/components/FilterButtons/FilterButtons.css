@@ -16,3 +16,13 @@
   border: none;
   cursor: pointer;
 }
+@media only screen and (min-width: 1201px) {
+  .header.item {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 45px 0px 20px 0px;
+  }
+}

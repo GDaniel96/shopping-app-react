@@ -54,11 +54,12 @@ const CartList = () => {
   };
 
   return (
-    <div>
-      <div>
+    <div className="cart-list-main-container">
+      <h2>Cart items</h2>
+      <div className="cart-item-container">
         {cart.map((product) => {
           return (
-            <div className="ui segment container" key={product.id}>
+            <div className="ui segment container " key={product.id}>
               <div className="image">
                 <img src={product.image} alt={product.title}></img>
               </div>

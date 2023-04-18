@@ -22,3 +22,27 @@
 .large.white.shopping.cart.icon {
   color: white;
 }
+
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+  .cart-container {
+    top: 22px;
+  }
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+  .cart-container {
+    top: 23px;
+  }
+}
+
+@media only screen and (min-width: 1025px) and (max-width: 1200px) {
+  .cart-container {
+    top: 24px;
+  }
+}
+
+@media only screen and (min-width: 1201px) {
+  .cart-container {
+    top: 37px;
+  }
+}
