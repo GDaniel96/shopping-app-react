@@ -39,7 +39,6 @@ const App = () => {
         ) : (
           <>
             <Header />
-
             <Route path="/">
               <Home products={products} />
             </Route>
