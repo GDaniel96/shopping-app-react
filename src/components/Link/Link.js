@@ -2,7 +2,7 @@ import React from "react";
 
 const Link = ({ href, className, children }) => {
   const onClick = (event) => {
-    if (event.metaKet || event.ctrlKey) {
+    if (event.metaKey || event.ctrlKey) {
       return;
     }
 

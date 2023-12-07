@@ -1,0 +1,25 @@
+.product-details-container {
+  padding: 30px;
+}
+
+.product-details {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  height: 100vh;
+}
+
+.product-image {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+
+.product-image img {
+  object-fit: scale-down;
+  width: 100%;
+}
+
+.product-content {
+  width: 50%;
+}

@@ -7,6 +7,7 @@ import FilterButtons from "../FilterButtons/FilterButtons";
 import CartList from "../CartList/CartList";
 import Route from "../Route/Route";
 import Header from "../Header/Header";
+import ProductDetails from "../ProductDetails/ProductDetails";
 import Loading from "../Loading/Loading";
 import Provider from "../Cart/Provider";
 
@@ -51,6 +52,9 @@ const App = () => {
             </Route>
             <Route path="/cart">
               <CartList />
+            </Route>
+            <Route path="/products/">
+              <ProductDetails products={products} />
             </Route>
           </>
         )}
