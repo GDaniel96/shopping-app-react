@@ -1,7 +1,10 @@
+import { Context } from "../Cart/Provider";
 import "./ProductDetails.css";
+import { useContext } from "react";
 
 const ProductDetails = ({ products }) => {
   const productId = window.location.href;
+  const { addToCart } = useContext(Context);
 
   return (
     <div className="product-details-container">
@@ -29,6 +32,12 @@ const ProductDetails = ({ products }) => {
                     <h2>$ {item.price}</h2>
                   </div>
                 </div>
+                <button
+                  className="add-button-details"
+                  onClick={() => addToCart(item)}
+                >
+                  Add to Cart
+                </button>
               </div>
             </div>
           );

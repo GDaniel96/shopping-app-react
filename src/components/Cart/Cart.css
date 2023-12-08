@@ -14,7 +14,7 @@
 
 .cart-container {
   position: absolute;
-  top: 20px;
+  top: 25px;
   right: 20px;
   border: none;
 }
@@ -43,6 +43,6 @@
 
 @media only screen and (min-width: 1201px) {
   .cart-container {
-    top: 37px;
+    top: 25px;
   }
 }

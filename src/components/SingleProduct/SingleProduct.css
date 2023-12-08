@@ -1,3 +1,7 @@
+.ui.card.card-container {
+  height: 100%;
+}
+
 .ui.card.card-container > .image {
   background-color: inherit;
   height: 300px;
@@ -9,20 +13,12 @@
   background-color: #c7b198;
   height: fit-content;
   color: black;
+  padding-bottom: 50px;
 }
 
 .ui.card.card-container > .image > img {
   height: 100%;
   object-fit: contain;
-}
-
-.add-button {
-  background-color: black;
-  border: none;
-  color: white;
-  font-family: inherit;
-  width: 100%;
-  padding: 10px;
 }
 
 .add-button:hover {
