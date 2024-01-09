@@ -1,31 +1,69 @@
-import React, { useContext } from "react";
-import { Context } from "../Cart/Provider";
+import React, { useState, useEffect } from "react";
 import SingleProduct from "../SingleProduct/SingleProduct";
-import Link from "../Link/Link";
 import "./Products.css";
+import FilterButtons from "./FilterButtons";
+import axios from "axios";
 
-const Products = ({ products }) => {
-  const { addToCart } = useContext(Context);
+const Products = () => {
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [activeFilter, setActiveFilter] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await axios
+        .get("https://fakestoreapi.com/products")
+        .then((response) => {
+          setProducts(response.data);
+          setIsLoading(false);
+        })
+        .catch((e) => {
+          console.log("Ups, there was an error: " + e);
+        });
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await axios
+        .get("https://fakestoreapi.com/products")
+        .then((response) => {
+          if (activeFilter) {
+            setProducts(
+              response.data.filter((product) => {
+                return product.category === activeFilter;
+              })
+            );
+          } else {
+            setProducts(response.data);
+          }
+
+          setIsLoading(false);
+        })
+        .catch((e) => {
+          console.log("Ups, there was an error: " + e);
+        });
+    };
+    fetchData();
+  }, [activeFilter]);
 
   return (
-    <div className="main-product-page-container">
-      {products.map((product) => {
-        return (
-          <div className="product-container" key={product.id}>
-            <Link href={`/products/#${product.id}`}>
-              <SingleProduct
-                product={product}
-                addToCart={addToCart}
-                key={product.id}
-              />
-            </Link>
-            <button className="add-button" onClick={() => addToCart(product)}>
-              Add to Cart
-            </button>
-          </div>
-        );
-      })}
-    </div>
+    <>
+      <FilterButtons
+        setActiveFilter={setActiveFilter}
+        activeFilter={activeFilter}
+      />
+      <div className="main-product-page-container">
+        {products.map((product) => {
+          return (
+            <div className="product-container" key={product.id}>
+              <SingleProduct product={product} key={product.id} />
+            </div>
+          );
+        })}
+      </div>
+    </>
   );
 };
 

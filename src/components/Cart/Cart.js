@@ -1,17 +1,21 @@
-import React, { useContext } from "react";
-import { Context } from "./Provider";
+import React from "react";
 import "./Cart.css";
+import useCart from "./useCart";
 
 const Cart = () => {
-  const { cart, setCart } = useContext(Context);
+  const { cart } = useCart();
+
   return (
     <div className="cart-container">
       <i className="large white shopping cart icon">
-        {cart.length === 0 ? null : (
-          <span className="product-counter">{cart.length}</span>
-        )}
+        <span className="product-counter">
+          {cart.reduce((acc, product) => {
+            return acc + product.quantity;
+          }, 0)}
+        </span>
       </i>
     </div>
   );
 };
+
 export default Cart;

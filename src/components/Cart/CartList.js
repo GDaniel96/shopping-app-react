@@ -1,57 +1,10 @@
-import React, { useContext } from "react";
-import { Context } from "../Cart/Provider";
+import React from "react";
 import "./CartList.css";
+import useCart from "./useCart";
 
 const CartList = () => {
-  const { cart, setCart } = useContext(Context);
-
-  const totalPriceAmount = cart.reduce(
-    (accumulator, currentValue) =>
-      accumulator + currentValue.price * currentValue.quantity,
-    0
-  );
-
-  const increaseQuantity = (product) => {
-    let indexOfExistingProduct = cart.findIndex(
-      (item) => item.id === product.id
-    );
-    console.log(indexOfExistingProduct);
-    if (indexOfExistingProduct !== -1) {
-      const updatedCart = cart.map((cartItem, index) => {
-        console.log(cartItem);
-        if (index === indexOfExistingProduct) {
-          return { ...cartItem, quantity: (cartItem.quantity += 1) };
-        }
-        return cartItem;
-      });
-      setCart(updatedCart);
-    }
-  };
-
-  const decreaseQuantity = (product) => {
-    let indexOfExistingProduct = cart.findIndex(
-      (item) => item.id === product.id
-    );
-
-    if (indexOfExistingProduct !== -1) {
-      const updatedCart = cart
-        .map((cartItem, index) => {
-          if (index !== indexOfExistingProduct) {
-            return cartItem;
-          }
-
-          if (cartItem.quantity > 1) {
-            return { ...cartItem, quantity: (cartItem.quantity -= 1) };
-          } else {
-            return null;
-          }
-        })
-        .filter((cartItem) => {
-          return cartItem !== null;
-        });
-      setCart(updatedCart);
-    }
-  };
+  const { cart, totalPriceAmount, increaseQuantity, decreaseQuantity } =
+    useCart();
 
   return (
     <div className="cart-list-main-container">
@@ -76,7 +29,7 @@ const CartList = () => {
                   <div className="quantity-container">
                     <h4>
                       <span>
-                        <button onClick={() => decreaseQuantity(product)}>
+                        <button onClick={() => decreaseQuantity(product.id)}>
                           -
                         </button>
                       </span>
@@ -84,7 +37,7 @@ const CartList = () => {
                       <span>
                         <button
                           onClick={() => {
-                            increaseQuantity(product);
+                            increaseQuantity(product.id);
                           }}
                         >
                           +

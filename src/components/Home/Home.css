@@ -1,6 +1,7 @@
-.home {
-  background-image: url("../../assets/shop.jpg");
-  background-position: center;
+.hero {
+  background-image: url("../../assets/fabio-bracht-e3oE-l-rtpA-unsplash.jpg");
+  background-position: 10% 20%;
+  background-size: cover;
   height: 80vh;
   display: flex;
   flex-direction: column;
@@ -9,19 +10,36 @@
   color: black;
 }
 
-.trending {
+/* PENDING VERIFICATION - STRANGE FLEX BEHAVIOUR FOR TRENDING-PRODUCTS-CONTAINER.
+
+NOTICED THAT WHEN THE CHILD DIV DOES NOT HAVE THE FLEX-WRAP PROPERTY, IT WORKS FINE */
+
+.trending-products-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 0 5%;
+}
+
+.trending-header {
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 20px;
 }
 
-.home > h2 {
+.headers {
+  position: absolute;
+  top: 200px;
+}
+
+.headers > h2 {
+  text-align: center;
   font-size: xx-large;
 }
 
-.home > h1 {
-  font-size: 50px;
+.headers > h1 {
+  font-size: 30px;
   padding-left: 20px;
 }
 
@@ -46,9 +64,47 @@
 }
 
 .products-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  padding-bottom: 20px;
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(4, auto);
+}
+
+.add-button:hover {
+  background-color: #fec01d;
+  color: black;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+  .products-container {
+    grid-template-columns: repeat(1, 100%);
+  }
+
+  .headers {
+    top: 150px;
+  }
+
+  .headers > h2 {
+    text-align: center;
+    font-size: x-large;
+  }
+
+  .headers > h1 {
+    font-size: 20px;
+  }
+}
+
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+  .products-container {
+    grid-template-columns: repeat(2, auto);
+  }
+
+  .headers {
+    top: 120px;
+  }
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+  .headers {
+    top: 200px;
+  }
 }

@@ -1,24 +1,24 @@
 import React from "react";
 import "./Header.css";
 import Cart from "../Cart/Cart";
-import Link from "../Link/Link";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
     <div className="header-container">
       <div className="ui secondary pointing menu">
-        <Link href="/" className="item">
+        <Link to="/" className="item">
           Home
         </Link>
-        <Link href="/products" className="item">
+        <Link to="/products" className="item">
           Products
         </Link>
-        <Link href="/cart" className="item">
+        <Link to="/cart" className="item">
           Cart
         </Link>
       </div>
       <div className="cart">
-        <Link href="/cart">
+        <Link to="/cart">
           <Cart />
         </Link>
       </div>

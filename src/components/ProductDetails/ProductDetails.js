@@ -1,47 +1,73 @@
-import { Context } from "../Cart/Provider";
 import "./ProductDetails.css";
-import { useContext } from "react";
+import { React, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import useCart from "../Cart/useCart";
 
-const ProductDetails = ({ products }) => {
-  const productId = window.location.href;
-  const { addToCart } = useContext(Context);
+const ProductDetails = () => {
+  const [productData, setProductData] = useState(null);
+  const { addToCart, cart, increaseQuantity, decreaseQuantity } = useCart();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await axios
+        .get("https://fakestoreapi.com/products")
+        .then((response) => {
+          console.log(response);
+          setProductData(
+            response.data.find((product) => product.id === parseInt(id))
+          );
+          setIsLoading(false);
+        })
+        .catch((e) => {
+          console.log("Ups, there was an error: " + e);
+        });
+    };
+    fetchData();
+  }, []);
+
+  if (!productData) {
+    return null;
+  }
 
   return (
     <div className="product-details-container">
-      {products
-        .filter((product) => {
-          if (product.id === Number(productId.split("#")[1])) {
-            return true;
-          }
-          return false;
-        })
-        .map((item) => {
-          return (
-            <div className="product-details" key={item.id}>
-              <div className="product-image">
-                <img src={item.image} alt={item.title}></img>
-              </div>
-              <div className="product-content">
-                <h2 className="header">{item.title}</h2>
-                <div className="meta">
-                  <span className="category">{item.category}</span>
-                </div>
-                <div className="description">{item.description}</div>
-                <div className="buy">
-                  <div className="price">
-                    <h2>$ {item.price}</h2>
-                  </div>
-                </div>
-                <button
-                  className="add-button-details"
-                  onClick={() => addToCart(item)}
-                >
-                  Add to Cart
-                </button>
-              </div>
+      <div className="product-details" key={productData.id}>
+        <div className="product-image">
+          <img src={productData.image} alt={productData.title}></img>
+        </div>
+        <div className="product-content">
+          <h2 className="header">{productData.title}</h2>
+          <div className="meta">
+            <span className="category">{productData.category}</span>
+          </div>
+          <div className="description">{productData.description}</div>
+          <div className="buy">
+            <div className="price">
+              <h2>$ {productData.price}</h2>
             </div>
-          );
-        })}
+          </div>
+          <button
+            className="add-button-details"
+            onClick={() => addToCart(productData)}
+          >
+            Add to Cart
+          </button>
+          {cart.find((product) => product.id === parseInt(id)) && (
+            <div>
+              <button onClick={() => increaseQuantity(productData.id)}>
+                +
+              </button>
+              <button onClick={() => decreaseQuantity(productData.id)}>
+                -
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };
