@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from "react";
+import { useContext, useMemo } from "react";
 import { Context } from "../Cart/Provider";
 
 const useCart = () => {

@@ -6,7 +6,6 @@ import axios from "axios";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState(null);
 
   useEffect(() => {
@@ -15,7 +14,6 @@ const Products = () => {
         .get("https://fakestoreapi.com/products")
         .then((response) => {
           setProducts(response.data);
-          setIsLoading(false);
         })
         .catch((e) => {
           console.log("Ups, there was an error: " + e);
@@ -38,8 +36,6 @@ const Products = () => {
           } else {
             setProducts(response.data);
           }
-
-          setIsLoading(false);
         })
         .catch((e) => {
           console.log("Ups, there was an error: " + e);

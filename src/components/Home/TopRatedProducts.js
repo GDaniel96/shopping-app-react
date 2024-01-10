@@ -8,7 +8,6 @@ const topRatedProducts = (product) => {
 
 const TopRatedProducts = () => {
   const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,7 +15,6 @@ const TopRatedProducts = () => {
         .get("https://fakestoreapi.com/products")
         .then((response) => {
           setProducts(response.data.filter(topRatedProducts));
-          setIsLoading(false);
         })
         .catch((e) => {
           console.log("Ups, there was an error: " + e);

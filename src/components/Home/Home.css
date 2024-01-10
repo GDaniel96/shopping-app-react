@@ -10,10 +10,6 @@
   color: black;
 }
 
-/* PENDING VERIFICATION - STRANGE FLEX BEHAVIOUR FOR TRENDING-PRODUCTS-CONTAINER.
-
-NOTICED THAT WHEN THE CHILD DIV DOES NOT HAVE THE FLEX-WRAP PROPERTY, IT WORKS FINE */
-
 .trending-products-container {
   display: flex;
   align-items: center;
@@ -69,11 +65,6 @@ NOTICED THAT WHEN THE CHILD DIV DOES NOT HAVE THE FLEX-WRAP PROPERTY, IT WORKS F
   grid-template-columns: repeat(4, auto);
 }
 
-.add-button:hover {
-  background-color: #fec01d;
-  color: black;
-}
-
 @media only screen and (min-width: 320px) and (max-width: 480px) {
   .products-container {
     grid-template-columns: repeat(1, 100%);
@@ -95,7 +86,7 @@ NOTICED THAT WHEN THE CHILD DIV DOES NOT HAVE THE FLEX-WRAP PROPERTY, IT WORKS F
 
 @media only screen and (min-width: 481px) and (max-width: 768px) {
   .products-container {
-    grid-template-columns: repeat(2, auto);
+    grid-template-columns: repeat(1, auto);
   }
 
   .headers {
@@ -104,6 +95,20 @@ NOTICED THAT WHEN THE CHILD DIV DOES NOT HAVE THE FLEX-WRAP PROPERTY, IT WORKS F
 }
 
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
+  .products-container {
+    grid-template-columns: repeat(2, auto);
+  }
+
+  .headers {
+    top: 200px;
+  }
+}
+
+@media only screen and (min-width: 1025px) and (max-width: 1200px) {
+  .products-container {
+    grid-template-columns: repeat(3, auto);
+  }
+
   .headers {
     top: 200px;
   }

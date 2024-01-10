@@ -26,6 +26,22 @@
   object-fit: contain;
 }
 
+.add-button {
+  background-color: black;
+  border: none;
+  color: white;
+  font-family: inherit;
+  width: 100%;
+  padding: 10px;
+  position: absolute;
+  bottom: 0;
+}
+
+.add-button:hover {
+  background-color: #fec01d;
+  color: black;
+}
+
 @media only screen and (min-width: 320px) and (max-width: 480px) {
   .ui.card.card-container {
     width: 100%;

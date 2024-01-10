@@ -7,7 +7,6 @@ import useCart from "../Cart/useCart";
 const ProductDetails = () => {
   const [productData, setProductData] = useState(null);
   const { addToCart, cart, increaseQuantity, decreaseQuantity } = useCart();
-  const [isLoading, setIsLoading] = useState(false);
 
   const { id } = useParams();
 
@@ -16,18 +15,16 @@ const ProductDetails = () => {
       await axios
         .get("https://fakestoreapi.com/products")
         .then((response) => {
-          console.log(response);
           setProductData(
             response.data.find((product) => product.id === parseInt(id))
           );
-          setIsLoading(false);
         })
         .catch((e) => {
           console.log("Ups, there was an error: " + e);
         });
     };
     fetchData();
-  }, []);
+  }, [id]);
 
   if (!productData) {
     return null;
